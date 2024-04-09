@@ -1,7 +1,7 @@
 services:
-  python:
-    container_name: python3.10
-    image: python3.10:latest
+  template: # <- this is the name of the service
+    container_name: < Container Name >
+    image: < Image Name >:latest
     tty: true
     build: .
     working_dir: /root

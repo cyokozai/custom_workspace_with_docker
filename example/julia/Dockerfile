@@ -17,21 +17,19 @@ ENV DISPLAY host.docker.internal:0.0
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
-COPY requirements.txt, rye_installer.sh, *.py /root/
+COPY *.jl /root/
 
 RUN apt -y update && apt -y upgrade &&\
     apt -y install tzdata \
     locales \
-    curl \
-    language-pack-ja-base language-pack-ja locales \
-    python3.10 \
-    python3-pip &&\
-    pip3 install --upgrade pip &&\
-    pip3 install -r requirements.txt &&\
-    echo "alias python=python3.10" >> ~/.bashrc &&\
-    echo "alias pip=pip3" >> ~/.bashrc &&\
+    wget \
+    tar \
+    language-pack-ja-base language-pack-ja locales &&\
+    wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.0-linux-x86_64.tar.gz &&\
+    tar zxvf julia-1.7.0-linux-x86_64.tar.gz -C /usr --strip-components 1 &&\
+    rm julia-1.7.0-linux-x86_64.tar.gz &&\
+    echo "alias newalias='julia'" >> ~/.bashrc &&\
     source ~/.bashrc &&\
-    mkdir -p ~/.local/share/bash-completion/completions &&\
     locale-gen ja_JP.UTF-8
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#

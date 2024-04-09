@@ -1,7 +1,7 @@
 services:
-  python:
-    container_name: python3.10
-    image: python3.10:latest
+  julia:
+    container_name: julia
+    image: julia:latest
     tty: true
     build: .
     working_dir: /root
