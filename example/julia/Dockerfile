@@ -17,7 +17,7 @@ ENV DISPLAY host.docker.internal:0.0
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
-COPY *.jl /root/
+COPY requirements.txt, rye_installer.sh, *.py /root/
 
 RUN apt -y update && apt -y upgrade &&\
     apt -y install tzdata \
