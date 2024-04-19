@@ -1,6 +1,6 @@
 services:
   latex:
-    container_name: LaTeX_ymgclab
+    container_name: LaTeX
     image: latex:latest
     tty: true
     build: .
