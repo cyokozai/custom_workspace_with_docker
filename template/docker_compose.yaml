@@ -1,0 +1,15 @@
+services:
+  template: # <- this is the name of the service
+    container_name: < Container Name >
+    image: < Image Name >:latest
+    tty: true
+    build: .
+    working_dir: /root
+    volumes:
+      - ./workdir:/root
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

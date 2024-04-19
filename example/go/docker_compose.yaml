@@ -1,0 +1,16 @@
+services:
+  golang:
+    container_name: golang
+    image: golang:latest
+    tty: true
+    build: .
+    working_dir: /root
+    volumes:
+      - ./workdir:/root
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+    

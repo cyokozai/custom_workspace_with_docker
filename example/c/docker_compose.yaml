@@ -1,0 +1,16 @@
+services:
+  clang:
+    container_name: clang
+    image: clang:latest
+    tty: true
+    build: .
+    working_dir: /root
+    volumes:
+      - ./workdir:/root
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+    
