@@ -27,6 +27,8 @@ RUN apt -y update &&\
         curl \
         wget \
         unzip &&\
+    kanji-config-updmap-sys auto &&\
+    kanji-config-updmap-sys status &&\
     mkdir /root/documents
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
