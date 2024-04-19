@@ -32,12 +32,14 @@ Dockerはイメージを元にコンテナをデプロイします。
 
 ### Dockerfileの書き方
 
-あいうえお
+[ここの公式リファレンス][Dockerfile リファレンス]を参考に書き方を勉強してください。
 
 ---
 
 ## 参考文献
 
 - [Docker CE の入手]
+- [Dockerfile リファレンス]
 
 [Docker CE の入手]: https://docs.docker.jp/get-docker.html
+[Dockerfile リファレンス]: https://docs.docker.jp/v1.11/engine/reference/builder.html
