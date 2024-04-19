@@ -1,0 +1,15 @@
+services:
+  latex:
+    container_name: LaTeX_ymgclab
+    image: latex:latest
+    tty: true
+    build: .
+    working_dir: /root
+    volumes:
+      - ./workdir:/root/documents
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

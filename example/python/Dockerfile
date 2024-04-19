@@ -34,7 +34,9 @@ RUN apt -y update && apt -y upgrade &&\
     echo "alias pip=pip3" >> ~/.bashrc &&\
     source ~/.bashrc &&\
     mkdir -p ~/.local/share/bash-completion/completions &&\
-    locale-gen ja_JP.UTF-8
+    locale-gen ja_JP.UTF-8 &&\
+    kanji-config-updmap-sys auto &&\
+    kanji-config-updmap-sys status
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
