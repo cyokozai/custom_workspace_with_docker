@@ -1,7 +1,6 @@
 services:
-  template: # <- this is the name of the service
-    container_name: < Container Name >
-    image: < Image Name >:latest
+  python:
+    container_name: python3.11
     tty: true
     build: .
     working_dir: /root
@@ -9,6 +8,8 @@ services:
       - ./workdir:/root
     networks:
       - default
+    environment:
+      - TZ=Asia/Tokyo
 
 networks:
   default:
