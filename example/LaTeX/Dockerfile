@@ -1,17 +1,13 @@
-###################### BUILDER ######################
-FROM ghcr.io/being24/latex-docker:latest AS builder
+###################### RUNTIME ######################
+FROM ghcr.io/being24/latex-docker:latest
 
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /root
 
-# Environment variables
+ARG lang="C"
+
 ENV DEBIAN_FRONTEND = noninter active
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
-ENV TZ=Asia/Tokyo
-ENV TZ JST-9
 ENV TERM xterm
 ENV DISPLAY host.docker.internal:0.0
 
@@ -29,9 +25,16 @@ RUN apt -y update &&\
         unzip &&\
     kanji-config-updmap-sys auto &&\
     kanji-config-updmap-sys status &&\
-    mkdir /root/documents
+    mkdir /root/documents &&\
+    locale-gen ${lang}
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
+
+ENV LANG ${lang}
+ENV LANGUAGE ${lang}
+ENV LC_ALL ${lang}
+ENV TZ=Asia/Tokyo
+ENV TZ JST-9
 
 EXPOSE 22
 #ENTRYPOINT ["/server-scrypt/main"]

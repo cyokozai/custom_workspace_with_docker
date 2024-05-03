@@ -1,5 +1,5 @@
 ###################### BUILDER ######################
-FROM ubuntu:latest AS builder
+FROM python:3.11 AS builder
 
 SHELL ["/bin/bash", "-c"]
 
@@ -7,38 +7,44 @@ WORKDIR /root
 
 # Environment variables
 ENV DEBIAN_FRONTEND = noninter active
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
-ENV TZ=Asia/Tokyo
-ENV TZ JST-9
+
+COPY requirements.txt /root/
+
+RUN pip install --upgrade pip &&\
+    pip install -r requirements.txt
+
+###################### RUNTIME ######################
+FROM python:3.11-slim
+
+SHELL ["/bin/bash", "-c"]
+
+WORKDIR /root
+
+ARG lang="C"
+
+ENV DEBIAN_FRONTEND = noninter active
 ENV TERM xterm
 ENV DISPLAY host.docker.internal:0.0
 
+COPY --from=builder /usr/local/bin/* /usr/local/bin/*
+COPY --from=builder /usr/local/lib/python3.*/site-packages /usr/local/lib/python3.*/site-packages
+
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
-COPY requirements.txt /root/
-COPY rye_installer.sh /root/
 COPY *.py /root/
 
 RUN apt -y update && apt -y upgrade &&\
     apt -y install tzdata \
-    locales \
-    curl \
-    language-pack-ja-base language-pack-ja locales \
-    python3.10 \
-    python3-pip &&\
-    pip3 install --upgrade pip &&\
-    pip3 install -r requirements.txt &&\
-    echo "alias python=python3.10" >> ~/.bashrc &&\
-    echo "alias pip=pip3" >> ~/.bashrc &&\
-    source ~/.bashrc &&\
-    mkdir -p ~/.local/share/bash-completion/completions &&\
-    locale-gen ja_JP.UTF-8 &&\
-    kanji-config-updmap-sys auto &&\
-    kanji-config-updmap-sys status
+    locales &&\
+    locale-gen ${lang}
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
+
+ENV LANG ${lang}
+ENV LANGUAGE ${lang}
+ENV LC_ALL ${lang}
+ENV TZ=Asia/Tokyo
+ENV TZ JST-9
 
 EXPOSE 22
 #ENTRYPOINT ["/server-scrypt/main"]

@@ -1,7 +1,6 @@
 services:
   python:
-    container_name: python3.10
-    image: python3.10:latest
+    container_name: python3.11
     tty: true
     build: .
     working_dir: /root
@@ -9,6 +8,8 @@ services:
       - ./workdir:/root
     networks:
       - default
+    environment:
+      - TZ=Asia/Tokyo
 
 networks:
   default:

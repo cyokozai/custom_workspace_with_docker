@@ -9,6 +9,8 @@ services:
       - ./workdir:/root
     networks:
       - default
+    environment:
+      - TZ=Asia/Tokyo
 
 networks:
   default:
