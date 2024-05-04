@@ -1,6 +1,6 @@
 services:
-  latex:
-    container_name: LaTeX
+  typst:
+    container_name: Typst
     tty: true
     build: .
     working_dir: /root

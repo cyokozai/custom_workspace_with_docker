@@ -1,11 +1,11 @@
 services:
   python:
-    container_name: python3.11
+    container_name: template
     tty: true
     build: .
     working_dir: /root
     volumes:
-      - ./workdir:/root
+      - ./workdir:/root/workdir
     networks:
       - default
     environment:

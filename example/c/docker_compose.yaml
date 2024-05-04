@@ -1,12 +1,11 @@
 services:
   clang:
     container_name: clang
-    image: clang:latest
     tty: true
     build: .
     working_dir: /root
     volumes:
-      - ./workdir:/root
+      - ./workdir:/root/workdir
     networks:
       - default
     environment:

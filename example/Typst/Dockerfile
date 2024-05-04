@@ -1,12 +1,12 @@
 ###################### BUILDER ######################
-FROM ubuntu:latest AS builder
+FROM ghcr.io/typst/typst:latest AS builder
 
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /root
 
 ARG lang="C"
-ARG dir="workdir"
+ARG dir="documents"
 
 ENV DEBIAN_FRONTEND = noninter active
 ENV TERM xterm
@@ -14,12 +14,14 @@ ENV DISPLAY host.docker.internal:0.0
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
-RUN apt -y update && apt -y upgrade &&\
-    apt -y install tzdata \
-    locales \
-    <packages name> \
-    <packages name> \
-    <packages name> &&\
+RUN apk update &&\
+    apk upgrade &&\
+    apk add --no-cache tzdata \
+        locales \
+        font-noto-cjk \
+        font-noto-cjk-extra \
+        font-noto-emoji \
+        setxkbmap &&\
     mkdir /root/${dir} &&\
     locale-gen ${lang}
 

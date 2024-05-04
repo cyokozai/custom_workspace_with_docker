@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /root
 
 ARG lang="C"
+ARG dir="workdir"
 
 ENV DEBIAN_FRONTEND = noninter active
 ENV TERM xterm
@@ -19,6 +20,7 @@ RUN apt -y update && apt -y upgrade &&\
     golang-go \
     language-pack-ja-base language-pack-ja locales &&\
     source ~/.bashrc &&\
+    mkdir /root/${dir} &&\
     locale-gen ${lang}
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
@@ -30,4 +32,3 @@ ENV TZ=Asia/Tokyo
 ENV TZ JST-9
 
 EXPOSE 22
-#ENTRYPOINT ["/server-scrypt/main"]

@@ -5,7 +5,7 @@ services:
     build: .
     working_dir: /root
     volumes:
-      - ./workdir:/root
+      - ./workdir:/root/workdir
     networks:
       - default
     environment:

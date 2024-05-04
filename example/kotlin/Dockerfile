@@ -1,9 +1,6 @@
-###################### BUILDER ######################
 FROM ubuntu:latest AS builder
 
 SHELL ["/bin/bash", "-c"]
-
-WORKDIR /root
 
 ARG lang="C"
 ARG dir="workdir"
@@ -14,12 +11,16 @@ ENV DISPLAY host.docker.internal:0.0
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
+COPY kotlininstaller.sh /root/
+
 RUN apt -y update && apt -y upgrade &&\
     apt -y install tzdata \
-    locales \
-    <packages name> \
-    <packages name> \
-    <packages name> &&\
+        locales \
+        curl \
+        zip \
+        unzip &&\
+    bash kotlininstaller.sh &&\
+    rm -rf kotlininstaller.sh &&\
     mkdir /root/${dir} &&\
     locale-gen ${lang}
 

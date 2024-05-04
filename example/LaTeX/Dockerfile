@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /root
 
 ARG lang="C"
+ARG dir="documents"
 
 ENV DEBIAN_FRONTEND = noninter active
 ENV TERM xterm
@@ -25,7 +26,7 @@ RUN apt -y update &&\
         unzip &&\
     kanji-config-updmap-sys auto &&\
     kanji-config-updmap-sys status &&\
-    mkdir /root/documents &&\
+    mkdir /root/${dir} &&\
     locale-gen ${lang}
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
@@ -37,4 +38,3 @@ ENV TZ=Asia/Tokyo
 ENV TZ JST-9
 
 EXPOSE 22
-#ENTRYPOINT ["/server-scrypt/main"]

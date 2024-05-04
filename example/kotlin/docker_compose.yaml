@@ -1,11 +1,11 @@
 services:
-  latex:
-    container_name: LaTeX
+  kotlin:
+    container_name: kotlin
     tty: true
     build: .
     working_dir: /root
     volumes:
-      - ./workdir:/root/documents
+      - ./workdir:/root/workdir
     networks:
       - default
     environment:
