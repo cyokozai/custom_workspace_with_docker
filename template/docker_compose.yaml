@@ -1,5 +1,5 @@
 services:
-  python:
+  template:
     container_name: template
     tty: true
     build: .
