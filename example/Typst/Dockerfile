@@ -1,8 +1,6 @@
 ###################### BUILDER ######################
 FROM ghcr.io/typst/typst:latest AS builder
 
-SHELL ["/bin/bash", "-c"]
-
 WORKDIR /root
 
 ARG lang="C"
@@ -17,13 +15,12 @@ ENV DISPLAY host.docker.internal:0.0
 RUN apk update &&\
     apk upgrade &&\
     apk add --no-cache tzdata \
-        locales \
+        musl-locales \
         font-noto-cjk \
         font-noto-cjk-extra \
         font-noto-emoji \
         setxkbmap &&\
-    mkdir /root/${dir} &&\
-    locale-gen ${lang}
+    mkdir /root/${dir}
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
