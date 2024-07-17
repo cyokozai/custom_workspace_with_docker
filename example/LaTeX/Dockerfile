@@ -3,9 +3,10 @@ FROM ghcr.io/being24/latex-docker:latest
 
 SHELL ["/bin/bash", "-c"]
 
-WORKDIR /root
+WORKDIR /home/latex
+USER root
 
-ARG lang="C"
+ARG lang="ja_JP.UTF-8"
 ARG dir="documents"
 
 ENV DEBIAN_FRONTEND = noninter active
@@ -16,7 +17,6 @@ ENV DISPLAY host.docker.internal:0.0
 
 RUN apt -y update &&\
     apt -y upgrade &&\
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &&\
     apt -y install tzdata \
         locales \
         nano \
@@ -26,8 +26,7 @@ RUN apt -y update &&\
         unzip &&\
     kanji-config-updmap-sys auto &&\
     kanji-config-updmap-sys status &&\
-    mkdir /root/${dir} &&\
-    locale-gen ${lang}
+    mkdir ${dir}
 
 #~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
@@ -36,5 +35,3 @@ ENV LANGUAGE ${lang}
 ENV LC_ALL ${lang}
 ENV TZ=Asia/Tokyo
 ENV TZ JST-9
-
-EXPOSE 22
