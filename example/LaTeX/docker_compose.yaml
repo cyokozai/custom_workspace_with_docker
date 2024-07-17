@@ -3,9 +3,9 @@ services:
     container_name: LaTeX
     tty: true
     build: .
-    working_dir: /root
+    working_dir: /home/latex
     volumes:
-      - ./workdir:/root/documents
+      - ./workdir:/home/latex/documents
     networks:
       - default
     environment:
