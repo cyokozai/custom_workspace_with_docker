@@ -8,13 +8,13 @@ USER root
 
 ARG lang="ja_JP.UTF-8"
 ARG dir="documents"
+ARG t2p="/usr/local/bin/"
 
 ENV DEBIAN_FRONTEND = noninter active
 ENV TERM xterm
 ENV DISPLAY host.docker.internal:0.0
 
-#~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
-
+COPY ./tex2pdf /usr/local/bin/
 RUN apt -y update &&\
     apt -y upgrade &&\
     apt -y install tzdata \
@@ -26,9 +26,11 @@ RUN apt -y update &&\
         unzip &&\
     kanji-config-updmap-sys auto &&\
     kanji-config-updmap-sys status &&\
-    mkdir ${dir}
+    mkdir ${dir} &&\
+    chmod +x ${t2p}tex2pdf &&\
+    export PATH=$PATH:~/bin &&\
+    source ~/.bashrc
 
-#~~~~~~~~~~~~~~~~~~~~~~ EDIT ~~~~~~~~~~~~~~~~~~~~~~~#
 
 ENV LANG ${lang}
 ENV LANGUAGE ${lang}
