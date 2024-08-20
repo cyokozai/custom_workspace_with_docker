@@ -26,6 +26,7 @@ RUN apt -y update &&\
         unzip &&\
     kanji-config-updmap-sys auto &&\
     kanji-config-updmap-sys status &&\
+    apt-get install texlive-fonts-recommended texlive-fonts-extra　&&\
     mkdir ${dir} &&\
     chmod +x ${t2p}tex2pdf &&\
     export PATH=$PATH:~/bin &&\
