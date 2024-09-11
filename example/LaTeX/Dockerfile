@@ -14,7 +14,8 @@ ENV DEBIAN_FRONTEND = noninter active
 ENV TERM xterm
 ENV DISPLAY host.docker.internal:0.0
 
-COPY ./tex2pdf /usr/local/bin/
+COPY ./tex2pdf ${t2p}
+
 RUN apt -y update &&\
     apt -y upgrade &&\
     apt -y install tzdata \
@@ -26,12 +27,11 @@ RUN apt -y update &&\
         unzip &&\
     kanji-config-updmap-sys auto &&\
     kanji-config-updmap-sys status &&\
-    apt-get install texlive-fonts-recommended texlive-fonts-extra　&&\
+    # apt-get install texlive-fonts-recommended texlive-fonts-extra　&&\
     mkdir ${dir} &&\
     chmod +x ${t2p}tex2pdf &&\
     export PATH=$PATH:~/bin &&\
     source ~/.bashrc
-
 
 ENV LANG ${lang}
 ENV LANGUAGE ${lang}
